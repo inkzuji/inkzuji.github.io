@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SpringBoot获取音频文件时长 | Ink-足迹 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="今天在做需求的时候遇到一个问题，就是获取上传音频文件、视频文件的播放时长。虽然时长问题可以在前段通过加载获取到。但是最后还是决定使用Java，来获取时长。百度了很多，但是发现都不完整，所以用这篇博客来记录一下。 该工程使用的是SpringBoot框架。由于在maven仓库中没有 jave-1.0.2.jar 这个jar，所以需要自己去下载到本地。 jave-1.0.2.jar下载地址  jave-">
+<meta name="keywords" content="Java,SpringBoot,Maven">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBoot获取音频文件时长">
+<meta property="og:url" content="https://ink-zuji.top/2018/06/13/SpringBoot获取音频文件时长/index.html">
+<meta property="og:site_name" content="Ink-足迹 blog">
+<meta property="og:description" content="今天在做需求的时候遇到一个问题，就是获取上传音频文件、视频文件的播放时长。虽然时长问题可以在前段通过加载获取到。但是最后还是决定使用Java，来获取时长。百度了很多，但是发现都不完整，所以用这篇博客来记录一下。 该工程使用的是SpringBoot框架。由于在maven仓库中没有 jave-1.0.2.jar 这个jar，所以需要自己去下载到本地。 jave-1.0.2.jar下载地址  jave-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-06-14T02:30:36.965Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpringBoot获取音频文件时长">
+<meta name="twitter:description" content="今天在做需求的时候遇到一个问题，就是获取上传音频文件、视频文件的播放时长。虽然时长问题可以在前段通过加载获取到。但是最后还是决定使用Java，来获取时长。百度了很多，但是发现都不完整，所以用这篇博客来记录一下。 该工程使用的是SpringBoot框架。由于在maven仓库中没有 jave-1.0.2.jar 这个jar，所以需要自己去下载到本地。 jave-1.0.2.jar下载地址  jave-">
+  
+    <link rel="alternative" href="/atom.xml" title="Ink-足迹 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Ink-足迹</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="#" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Ink-足迹</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Ink-足迹</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="#" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-SpringBoot获取音频文件时长" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/13/SpringBoot获取音频文件时长/" class="article-date">
+      <time datetime="2018-06-13T13:29:02.000Z" itemprop="datePublished">2018-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot获取音频文件时长
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Java/">Java</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Maven/">Maven</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpringBoot/">SpringBoot</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>今天在做需求的时候遇到一个问题，就是获取上传音频文件、视频文件的播放时长。虽然时长问题可以在前段通过加载获取到。但是最后还是决定使用Java，来获取时长。百度了很多，但是发现都不完整，所以用这篇博客来记录一下。</p>
+<p>该工程使用的是SpringBoot框架。由于在maven仓库中没有 <strong>jave-1.0.2.jar</strong> 这个jar，所以需要自己去下载到本地。</p>
+<p><a href="http://www.java2s.com/Code/Jar/j/Downloadjave102jar.htm" target="_blank" rel="noopener">jave-1.0.2.jar下载地址</a> </p>
+<p><a href="https://pan.baidu.com/s/1LDfK1EVleWr2ZjTtEch97A" target="_blank" rel="noopener">jave-1.0.2.jar百度云链接</a> 密码：5jmh</p>
+<a id="more"></a>
+<p>&nbsp;<br>&nbsp;</p>
+<h1 id="下面是具体实现代码"><a href="#下面是具体实现代码" class="headerlink" title="下面是具体实现代码"></a>下面是具体实现代码</h1><p>&nbsp;</p>
+<h2 id="pom-xml-文件"><a href="#pom-xml-文件" class="headerlink" title="pom.xml 文件"></a>pom.xml 文件</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;it.sauronsoftware&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;jave&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0.2&lt;/version&gt;</span><br><span class="line">	&lt;!-- 下面两个是使用system在pom.xml中导入jar --&gt;</span><br><span class="line">    &lt;scope&gt;system&lt;/scope&gt;</span><br><span class="line">    &lt;systemPath&gt;$&#123;project.basedir&#125;/src/main/resources/lib/jave-1.0.2.jar&lt;/systemPath&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br><span class="line"></span><br><span class="line">&lt;plugins&gt;</span><br><span class="line">    &lt;plugin&gt;</span><br><span class="line">        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">        &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;</span><br><span class="line">        &lt;configuration&gt;</span><br><span class="line">            &lt;!--将本地使用的jar打包的时候引入lib--&gt;</span><br><span class="line">            &lt;includeSystemScope&gt;true&lt;/includeSystemScope&gt;</span><br><span class="line">        &lt;/configuration&gt;</span><br><span class="line">    &lt;/plugin&gt;</span><br><span class="line">&lt;/plugins&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 下面是为了打包的时候能够将jave-1.0.2.jar 排查，防止静态资源打进去 --&gt;</span><br><span class="line">&lt;resources&gt;</span><br><span class="line">	&lt;resource&gt;</span><br><span class="line">        &lt;directory&gt;$&#123;basedir&#125;src/main/resources&lt;/directory&gt;</span><br><span class="line">        &lt;excludes&gt;</span><br><span class="line">            &lt;exclude&gt;lib/*.jar&lt;/exclude&gt;</span><br><span class="line">        &lt;/excludes&gt;</span><br><span class="line">    &lt;/resource&gt;</span><br><span class="line">&lt;/resources&gt;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<h2 id="FileUploadUtil-java"><a href="#FileUploadUtil-java" class="headerlink" title="FileUploadUtil.java"></a>FileUploadUtil.java</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line">import it.sauronsoftware.jave.Encoder;</span><br><span class="line">import it.sauronsoftware.jave.MultimediaInfo;</span><br><span class="line">import org.slf4j.Logger;</span><br><span class="line">import org.slf4j.LoggerFactory;</span><br><span class="line">import org.springframework.util.ResourceUtils;</span><br><span class="line">import org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line">import java.io.File;</span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 文件上传工具类</span><br><span class="line"> *</span><br><span class="line"> * @author Ink-足迹</span><br><span class="line"> * @create 2018-06-13 20:13</span><br><span class="line"> **/</span><br><span class="line">public class FileUploadUtil &#123;</span><br><span class="line"></span><br><span class="line">    private static final Logger log = LoggerFactory.getLogger(FileUtil.class);</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取时长</span><br><span class="line">     *</span><br><span class="line">     * @param file 音频/视频文件</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    public static long getVideoDuration(MultipartFile file) &#123;</span><br><span class="line">        long duration = 0;</span><br><span class="line">        try &#123;</span><br><span class="line">            File source = new File(getFilePath() + file.getOriginalFilename());</span><br><span class="line">            file.transferTo(source);</span><br><span class="line">            Encoder encoder = new Encoder();</span><br><span class="line">            MultimediaInfo info = encoder.getInfo(source);</span><br><span class="line">            duration = info.getDuration();</span><br><span class="line">            if (source.exists()) &#123;</span><br><span class="line">                source.delete();</span><br><span class="line">            &#125;</span><br><span class="line">            return duration / 1000;</span><br><span class="line">        &#125; catch (Exception e) &#123;</span><br><span class="line">            log.error(&quot;获取时长&quot;, e);</span><br><span class="line">            return duration;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 获取路径</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     */</span><br><span class="line">    private static String getFilePath() throws Exception &#123;</span><br><span class="line">        //获取当前文件的根路径</span><br><span class="line">        File path = new File(ResourceUtils.getURL(&quot;classpath:&quot;).getPath());</span><br><span class="line">        if (!path.exists()) path = new File(&quot;&quot;);</span><br><span class="line"></span><br><span class="line">        //盘符路径</span><br><span class="line">        StringBuilder codeUrl = new StringBuilder();</span><br><span class="line">        codeUrl.append(path.getAbsolutePath()).append(&quot;/static/video/&quot;);</span><br><span class="line">        File file = new File(codeUrl.toString());</span><br><span class="line">        if (!file.exists()) &#123;</span><br><span class="line">            file.mkdirs();</span><br><span class="line">        &#125;</span><br><span class="line">        return codeUrl.toString();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>&nbsp;</p>
+<h2 id="UploadFileController-java"><a href="#UploadFileController-java" class="headerlink" title="UploadFileController.java"></a>UploadFileController.java</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line">import org.apache.commons.lang.StringUtils;</span><br><span class="line">import org.springframework.web.bind.annotation.*;</span><br><span class="line">import org.springframework.web.multipart.MultipartFile;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">/**</span><br><span class="line"> * 上传文件接口</span><br><span class="line"> *</span><br><span class="line"> * @author Ink-足迹</span><br><span class="line"> * @create 2018-06-01 16:58</span><br><span class="line"> **/</span><br><span class="line">@RestController</span><br><span class="line">@RequestMapping(&quot;common&quot;)</span><br><span class="line">public class UploadFileController &#123;</span><br><span class="line"></span><br><span class="line">    private static final String FOLDER_PATH = &quot;course/&quot;;</span><br><span class="line"></span><br><span class="line">    /**</span><br><span class="line">     * 上传文件</span><br><span class="line">     *</span><br><span class="line">     * @param folder 文件夹名， iamge=图片，voice=音频，video=视频，ppt=ppt...</span><br><span class="line">     * @param file   上传的文件</span><br><span class="line">     * @return</span><br><span class="line">     * @throws Exception</span><br><span class="line">     * @author Ink-足迹</span><br><span class="line">     */</span><br><span class="line">    @PostMapping(value = &quot;/uploadFile/&#123;folder&#125;&quot;)</span><br><span class="line">    public ServerResponse&lt;JSONObject&gt; uploadFile(@PathVariable(&quot;folder&quot;) String folder, @RequestParam(&quot;file&quot;) MultipartFile file) throws Exception &#123;</span><br><span class="line">        long duration = 0;//音频长度，秒</span><br><span class="line">        String fileName = file.getOriginalFilename();</span><br><span class="line">        String suffix = fileName.substring(fileName.lastIndexOf(&quot;.&quot;));</span><br><span class="line">        StringBuilder sb = new StringBuilder();</span><br><span class="line">        sb.append(FOLDER_PATH).append(folder).append(&quot;/&quot;);</span><br><span class="line">        String path = &quot;&quot;;</span><br><span class="line"></span><br><span class="line">        // 获取音频文件的时长</span><br><span class="line">        if (StringUtils.equals(&quot;voice&quot;, folder) || StringUtils.equals(&quot;video&quot;, folder)) &#123;</span><br><span class="line">            duration = FileUploadUtil.getVideoDuration(file);</span><br><span class="line">        &#125;</span><br><span class="line">        JSONObject result = new JSONObject();</span><br><span class="line">        result.put(&quot;url&quot;, path);</span><br><span class="line">        result.put(&quot;name&quot;, fileName);</span><br><span class="line">        result.put(&quot;size&quot;, file.getSize() + &quot;&quot;);</span><br><span class="line">        result.put(&quot;duration&quot;, duration);</span><br><span class="line">        return ServerResponse.createBySuccess(result);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>哈哈哈哈</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/head.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">皮一下，很开心</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/head.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/head.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/head.jpg"); //"+dataid+"img
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/13/SpringBoot获取音频文件时长/">SpringBoot获取音频文件时长</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Ink-足迹 的个人博客">Ink-足迹</a></p>
+        <p><span>发布时间:</span>2018年06月13日 - 21时29分</p>
+        <p><span>最后更新:</span>2018年06月14日 - 10时30分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/13/SpringBoot获取音频文件时长/" title="SpringBoot获取音频文件时长">https://ink-zuji.top/2018/06/13/SpringBoot获取音频文件时长/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://ink-zuji.top/2018/06/13/SpringBoot获取音频文件时长/　　作者: Ink-足迹" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+    <a href="/2018/06/14/使用Hexo+GitHub搭建个人博客/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          使用Hexo+GitHub搭建个人博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/06/12/常用Git命令清单/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">常用Git命令清单</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#下面是具体实现代码"><span class="toc-number">1.</span> <span class="toc-text">下面是具体实现代码</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#pom-xml-文件"><span class="toc-number">1.1.</span> <span class="toc-text">pom.xml 文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#FileUploadUtil-java"><span class="toc-number">1.2.</span> <span class="toc-text">FileUploadUtil.java</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#UploadFileController-java"><span class="toc-number">1.3.</span> <span class="toc-text">UploadFileController.java</span></a></li></ol></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/2018/06/14/使用Hexo+GitHub搭建个人博客/" title="上一篇: 使用Hexo+GitHub搭建个人博客">
+                <i class="fa fa-angle-left"></i>
+            </a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/06/12/常用Git命令清单/" title="下一篇: 常用Git命令清单">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/使用Hexo+GitHub搭建个人博客/">使用Hexo+GitHub搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/13/SpringBoot获取音频文件时长/">SpringBoot获取音频文件时长</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/12/常用Git命令清单/">常用Git命令清单</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Ink-足迹
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>

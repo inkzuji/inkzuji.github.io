@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>使用Hexo+GitHub搭建个人博客 | Ink-足迹 blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="搭建这个个人博客其实在挺早的时候就有这个想法，由于一些原因一直在那里搁浅。最近刚好也有这个时间所以就来搭建一下。在网上百度了很多，发现总是有一些不够完善的，导致查了很多资料，所以写这篇文章来记录一下，防止忘记，仅供参考。">
+<meta name="keywords" content="Git,Hexo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Hexo+GitHub搭建个人博客">
+<meta property="og:url" content="https://ink-zuji.top/2018/06/14/使用Hexo+GitHub搭建个人博客/index.html">
+<meta property="og:site_name" content="Ink-足迹 blog">
+<meta property="og:description" content="搭建这个个人博客其实在挺早的时候就有这个想法，由于一些原因一直在那里搁浅。最近刚好也有这个时间所以就来搭建一下。在网上百度了很多，发现总是有一些不够完善的，导致查了很多资料，所以写这篇文章来记录一下，防止忘记，仅供参考。">
+<meta property="og:locale" content="default">
+<meta property="og:image" content="https://ink-zuji.top/images/nodejsdown.png">
+<meta property="og:image" content="https://ink-zuji.top/images/gitdown.png">
+<meta property="og:image" content="https://ink-zuji.top/images/gitversion.png">
+<meta property="og:image" content="https://ink-zuji.top/images/githubcreate.png">
+<meta property="og:image" content="https://ink-zuji.top/images/githubproject.png">
+<meta property="og:image" content="https://ink-zuji.top/images/githubpages.png">
+<meta property="og:image" content="https://ink-zuji.top/images/githubssh.png">
+<meta property="og:image" content="https://ink-zuji.top/images/installhexo.png">
+<meta property="og:image" content="https://ink-zuji.top/images/hexoinit.png">
+<meta property="og:image" content="https://ink-zuji.top/images/hexothemes.png">
+<meta property="og:image" content="https://ink-zuji.top/images/githubgclonedown.png">
+<meta property="og:image" content="https://ink-zuji.top/images/hexoconfig.png">
+<meta property="og:image" content="https://ink-zuji.top/images/aliyunjiexi.png">
+<meta property="og:image" content="https://ink-zuji.top/images/aliyundnsjiexi.png">
+<meta property="og:image" content="https://ink-zuji.top/images/pinggithub.png">
+<meta property="og:updated_time" content="2018-06-12T11:21:03.402Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用Hexo+GitHub搭建个人博客">
+<meta name="twitter:description" content="搭建这个个人博客其实在挺早的时候就有这个想法，由于一些原因一直在那里搁浅。最近刚好也有这个时间所以就来搭建一下。在网上百度了很多，发现总是有一些不够完善的，导致查了很多资料，所以写这篇文章来记录一下，防止忘记，仅供参考。">
+<meta name="twitter:image" content="https://ink-zuji.top/images/nodejsdown.png">
+  
+    <link rel="alternative" href="/atom.xml" title="Ink-足迹 blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/favicon.png">
+  
+  
+      <link rel="stylesheet" href="//cdn.bootcss.com/animate.css/3.5.0/animate.min.css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+  
+      <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  
+  <!-- 加载特效 -->
+    <script src="/js/pace.js"></script>
+    <link href="/css/pace/pace-theme-flash.css" rel="stylesheet" />
+  <script>
+      var yiliaConfig = {
+          rootUrl: '/',
+          fancybox: true,
+          animate: true,
+          isHome: false,
+          isPost: true,
+          isArchive: false,
+          isTag: false,
+          isCategory: false,
+          open_in_new: false
+      }
+  </script>
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/head.jpg" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/" title="Hi Mate">Ink-足迹</a></h1>
+        </hgroup>
+
+        
+        
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/Home">博客首页</a></li>
+                        
+                            <li><a href="/works">作品展示</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <a class="fl github" target="_blank" href="#" title="github">github</a>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <a href="/tags/Git/" style="font-size: 20px;">Git</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/Java/" style="font-size: 10px;">Java</a> <a href="/tags/Maven/" style="font-size: 10px;">Maven</a> <a href="/tags/SpringBoot/" style="font-size: 10px;">SpringBoot</a>
+                    </div>
+                </section>
+                
+                
+                
+
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="Me">Ink-足迹</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                
+                    <img lazy-src="/img/head.jpg" class="js-avatar">
+                
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="Me">Ink-足迹</a></h1>
+            </hgroup>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/Home">博客首页</a></li>
+                
+                    <li><a href="/works">作品展示</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                <div class="social">
+                    
+                        <a class="github" target="_blank" href="#" title="github">github</a>
+                    
+                </div>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-使用Hexo+GitHub搭建个人博客" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/06/14/使用Hexo+GitHub搭建个人博客/" class="article-date">
+      <time datetime="2018-06-14T02:19:13.239Z" itemprop="datePublished">2018-06-14</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用Hexo+GitHub搭建个人博客
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/杂/">杂</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>搭建这个个人博客其实在挺早的时候就有这个想法，由于一些原因一直在那里搁浅。最近刚好也有这个时间所以就来搭建一下。在网上百度了很多，发现总是有一些不够完善的，导致查了很多资料，所以写这篇文章来记录一下，防止忘记，仅供参考。<br><a id="more"></a></p>
+<p>总的来说可以分为以下几个步骤：</p>
+<blockquote>
+<p>1、搭建环境</p>
+<p>2、在GitHub上创建GitHub pages项目</p>
+<p>3、Hexo 创建个人博客</p>
+<p>4、将自己的域名关联到GitHub pages上</p>
+<p>5、在博客写文章</p>
+</blockquote>
+<h2 id="搭建环境"><a href="#搭建环境" class="headerlink" title="搭建环境"></a>搭建环境</h2><h3 id="安装Node-js"><a href="#安装Node-js" class="headerlink" title="安装Node.js"></a>安装Node.js</h3><p>在Windows环境下安装Node.js,只需要去<a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node官网</a>下载对应系统安装包，只需一直按下一步就可以。如下图：</p>
+<p><img src="/images/nodejsdown.png" alt=""></p>
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>去<a href="https://git-scm.com/downloads" target="_blank" rel="noopener">Git官网</a>下载自己系统对应的版本安装包。如下图：</p>
+<p><img src="/images/gitdown.png" alt=""></p>
+<p>安装完成之后。可以通过命令行输入 <code>git version</code> 命令，查看是否安装成功,如下图</p>
+<p><img src="/images/gitversion.png" alt=""></p>
+<p>安装完成之后，鼠标右键点击会出现 <code>Git HUI Here</code>, <code>Git Bash Here</code> 两个按钮，<br>前面一个是图形界面的Git操作，后面一个是命令行，我们选择 <code>Git Bash Here</code> 按钮。</p>
+<h2 id="在GitHub上创建GitHub-pages项目"><a href="#在GitHub上创建GitHub-pages项目" class="headerlink" title="在GitHub上创建GitHub pages项目"></a>在GitHub上创建GitHub pages项目</h2><h3 id="注册GitHub账号"><a href="#注册GitHub账号" class="headerlink" title="注册GitHub账号"></a>注册GitHub账号</h3><p>如果已经有了自己的GtiHub账号，只需要登录就行，没有的话就去<a href="https://github.com/join?source=header-home" target="_blank" rel="noopener">官网注册</a></p>
+<h3 id="创建项目代码库"><a href="#创建项目代码库" class="headerlink" title="创建项目代码库"></a>创建项目代码库</h3><p>a）注册完成之后，创建一个自己的GitHub Pages项目，点击右上角头像左边的 <code>+</code>按钮，展开后点击 <code>New repository</code> 按钮</p>
+<p>b）新建项目如下图：</p>
+<p><img src="/images/githubcreate.png" alt=""></p>
+<p>上图中 <code>Repository name</code> 输入框中 <code>userName.github.io</code> 中的 <code>userName</code> 改成你自己的用户名。</p>
+<p><code>Description</code> 输入项目的描述</p>
+<p>最后点击 <code>Create repository</code> 按钮，创建项目库</p>
+<h3 id="项目创建完成之后，配置属性"><a href="#项目创建完成之后，配置属性" class="headerlink" title="项目创建完成之后，配置属性"></a>项目创建完成之后，配置属性</h3><p>a）点击 <code>Settings</code> 按钮，如下图所示：</p>
+<p><img src="/images/githubproject.png" alt=""></p>
+<p>b）进入 <code>Settings</code> 后，拉到最下面，点击 <code>Choose a theme</code> 按钮，进去后选择一个主题。选择完主题之后，会给你生成一个访问路径，一般会是 <code>https://userName.github.io/</code> 。如下图所示：</p>
+<p><img src="/images/githubpages.png" alt=""></p>
+<h3 id="配置SSH密钥"><a href="#配置SSH密钥" class="headerlink" title="配置SSH密钥"></a>配置SSH密钥</h3><p>配置Github的SSH密钥可以让本地git项目与远程的github建立联系，让我们在本地写了代码之后直接通过git操作就可以实现本地代码库与Github代码库同步。操作如下：</p>
+<p>a）查看是否存在SSH密钥(keys)</p>
+<p>打开 <code>Git Bash Here</code>，并运行如下命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ cd ~/.ssh</span><br></pre></td></tr></table></figure>
+<p>检查你本机用户目录下是否存在<strong>.ssh</strong>目录 </p>
+<p>如果，不存在此目录，则进行第二步操作，否则可以略过第二步，直接进入第三步操作。</p>
+<p>b）创建新的<strong>ssh</strong>秘钥（keys）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -C &quot;your_email@example.com&quot;</span><br><span class="line">#这将按照你提供的邮箱地址，创建一对密钥</span><br><span class="line">Generating public/private rsa key pair.</span><br><span class="line">Enter file in which to save the key (/c/Users/you/.ssh/id_rsa): [Press enter]</span><br></pre></td></tr></table></figure>
+<p>直接回车，则将密钥按默认文件进行存储。此时也可以输入特定的文件名，比如 <code>/c/Users/you/.ssh/github_rsa</code> ,当然一般情况下我们也不会做修改</p>
+<p>接着，根据提示，你需要输入密码和确认密码（说到这里，如果你很放心，其实可以不用密码，就是到输密码的地方，都直接回车，所以每次push就只管回车就行了。所谓的最安全的密码，就是没有密码 – – 哈哈）。相关提示如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Enter passphrase (empty for no passphrase): [Type a passphrase]</span><br><span class="line">Enter same passphrase again: [Type passphrase again]</span><br></pre></td></tr></table></figure>
+<p>输入完成之后，屏幕会显示如下信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Your identification has been saved in /c/Users/you/.ssh/id_rsa.</span><br><span class="line">Your public key has been saved in /c/Users/you/.ssh/id_rsa.pub.</span><br><span class="line">The key fingerprint is:</span><br><span class="line">01:0f:f4:3b:ca:85:d6:17:a1:7d:f0:68:9d:f0:a2:db your_email@example.com</span><br></pre></td></tr></table></figure>
+<p>c）在GitHub账户中添加你的公钥</p>
+<p>运行如下命令，将公钥的内容复制到系统粘贴板(clipboard)中。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">clip &lt; ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>或者你习惯使用ctrl+c与ctrl+v的话，那么你可以使用gedit命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gedit ~/.ssh/id_rsa.pub</span><br></pre></td></tr></table></figure>
+<p>接着登录自己的GitHub账号，进入<strong>Settings</strong>页面。如下图所示</p>
+<p><img src="/images/githubssh.png" alt=""></p>
+<p>在<strong>Title</strong>中随便输<br>在<strong>Key</strong>中输入你刚才已经复制到系统粘贴板中的内容</p>
+<p>d）测试</p>
+<p>输入如下命令:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+<p>如果是下面的反馈：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">The authenticity of host &apos;github.com (207.97.227.239)&apos; can&apos;t be established.</span><br><span class="line">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span><br><span class="line">Are you sure you want to continue connecting (yes/no)?</span><br></pre></td></tr></table></figure>
+<p>输入<code>yes</code>即可。<br>显示的如果是如下内容，则表示成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Hi Ink-zuji! You&apos;ve successfully authenticated, but GitHub does not provide shell access.</span><br></pre></td></tr></table></figure>
+<p>e）设置用户信息</p>
+<p>现在你已经可以通过SSH链接到GitHub了，还有一些个人信息需要完善的。<br>Git会根据用户的名字和邮箱来记录提交。GitHub也是用这些信息来做权限的处理，输入下面的代码进行个人信息的设置，把名称和邮箱替换成你自己的，名字根据自己的喜好自己取，而不一定是GitHub的昵称。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ git config --global user.name &quot;ryanlijianchang&quot;//用户名</span><br><span class="line">$ git config --global user.email  &quot;liji.anchang@163.com&quot;//填写自己的邮箱</span><br></pre></td></tr></table></figure>
+<p>到这里 <strong>SSH Key</strong> 就配置成功了，本机可以连接到Github上了。</p>
+<h2 id="Hexo-创建个人博客"><a href="#Hexo-创建个人博客" class="headerlink" title="Hexo 创建个人博客"></a>Hexo 创建个人博客</h2><h3 id="Hexo-安装"><a href="#Hexo-安装" class="headerlink" title="Hexo 安装"></a>Hexo 安装</h3><p>点击 <code>Git Bash Here</code>，进入命令模式，输入如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br></pre></td></tr></table></figure>
+<p>安装成功之后，如下图所示：</p>
+<p><img src="/images/installhexo.png" alt=""></p>
+<h3 id="Hexo初始化配置"><a href="#Hexo初始化配置" class="headerlink" title="Hexo初始化配置"></a>Hexo初始化配置</h3><p>安装完成后，根据自己喜好建立目录（如F:\Blog\Hexo），直接进入F:\Blog\Hexo文件夹下右键鼠标，点击Git Bash Here，进入Git命令框，执行以下操作。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo init</span><br></pre></td></tr></table></figure>
+<p>安装 Hexo 完成后，Hexo 将会在指定文件夹中新建所需要的文件</p>
+<p><strong>本地查看效果</strong></p>
+<p>执行下面语句，查看效果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br><span class="line">#可以简写成 hexo g</span><br><span class="line">$ hexo server</span><br><span class="line">#可以简写成 hexo s</span><br></pre></td></tr></table></figure>
+<p>登录<code>localhost:4000</code>,即可看到本地效果如下：</p>
+<p><img src="/images/hexoinit.png" alt=""></p>
+<p>如果<code>localhost:4000</code>没有查看到如上结果，那么有可能是端口被占用了，可以执行如下命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s -p 5000</span><br><span class="line">#将端口改成 5000,登录 localhost:5000，即可查看效果</span><br></pre></td></tr></table></figure>
+<h3 id="美化博客（可选）"><a href="#美化博客（可选）" class="headerlink" title="美化博客（可选）"></a>美化博客（可选）</h3><p>a）进入<a href="https://hexo.io/themes/" target="_blank" rel="noopener">Hexo的官网主题专栏</a>,选择我们自己喜欢的主题</p>
+<p><img src="/images/hexothemes.png" alt=""></p>
+<p>b）克隆主题</p>
+<p>再打开Hexo文件夹下的themes目录（F:\Blog\hexo\themes），右键 <code>Git Bash Here</code>，在命令行输入:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/luuman/hexo-theme-spfk(此处地址替换成你需要使用的主题的地址)</span><br></pre></td></tr></table></figure>
+<p>下载下来之后需要删除<strong>.git</strong>文件，防止影响别人的项目</p>
+<p>c）修改Hexo配置文件</p>
+<p>下载完成后，打开Hexo文件夹下的配置文件_config.yml</p>
+<p>修改参数为：<code>theme: hexo-theme-spfk</code></p>
+<h3 id="将博客部署到GitHub-Pages上"><a href="#将博客部署到GitHub-Pages上" class="headerlink" title="将博客部署到GitHub Pages上"></a>将博客部署到GitHub Pages上</h3><p>a）进入自己在GitHub中创建的工程，如下图所示：</p>
+<p><img src="/images/githubgclonedown.png" alt=""></p>
+<p>上面的路径如果不是<strong>git@..</strong>开头的，可以点击 <code>Use SSH</code> 按钮</p>
+<p>b）配置创建的Hexo文件夹下的<code>_congfig.yml</code>参数</p>
+<p>打开<code>_congfig.yml</code>,拉到最下面，配置如下图所示</p>
+<p><img src="/images/hexoconfig.png" alt=""></p>
+<p>c）将Hexo部署到GitHub</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-deployer-git --save</span><br><span class="line">  # 安装 hexo 部署到 git page 的 deployer ,只需执行一次就行</span><br><span class="line">$ hexo clean</span><br><span class="line">  # 清除 hexo g 生成的 public 文件夹，防止有缓存</span><br><span class="line">$ hexo g</span><br><span class="line">  # 生成 public 文件夹</span><br><span class="line">$ hexo d</span><br><span class="line">  # 先生成 .deploy_git 文件夹，再将文件部署到GitHub上</span><br></pre></td></tr></table></figure>
+<p>部署成功之后，可以使用 <code>https://userName.github.io</code> 访问查看</p>
+<h2 id="将自己的域名关联到GitHub-pages上"><a href="#将自己的域名关联到GitHub-pages上" class="headerlink" title="将自己的域名关联到GitHub pages上"></a>将自己的域名关联到GitHub pages上</h2><h3 id="购买域名"><a href="#购买域名" class="headerlink" title="购买域名"></a>购买域名</h3><p> 在<a href="https://wanwang.aliyun.com/domain/" target="_blank" rel="noopener">阿里云万网</a>上 购买一个域名，个人买的是.top域名，第一年只要4元。</p>
+<h3 id="配置CNAME文件"><a href="#配置CNAME文件" class="headerlink" title="配置CNAME文件"></a>配置CNAME文件</h3><p>在 \hexo\source 文件夹下创建文件 CNAME （新建记事本文件命名CNAME，然后打开），<br>内容为你的域名，例如我都域名是： [ink-zuji.top]{<a href="https://ink-zuji.top}">https://ink-zuji.top}</a></p>
+<p>在Hexo文件夹提交</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean</span><br><span class="line">$ hexo g -d</span><br></pre></td></tr></table></figure>
+<h3 id="解析域名"><a href="#解析域名" class="headerlink" title="解析域名"></a>解析域名</h3><p>进入阿里云控制台域名服务页面,点击解析，如下图所示：</p>
+<p><img src="/images/aliyunjiexi.png" alt=""></p>
+<h3 id="配置解析参数"><a href="#配置解析参数" class="headerlink" title="配置解析参数"></a>配置解析参数</h3><p>配置两条解析数据，如下图所示：</p>
+<p><img src="/images/aliyundnsjiexi.png" alt=""></p>
+<p>上图中填写的记录值需要改成自己的GitHub域名与IP</p>
+<p>获取IP方式如下所示</p>
+<p><img src="/images/pinggithub.png" alt=""></p>
+<p>这样就可以使用自己的域名访问了，例如我自己的是 <a href="https://ink-zuji.top">ink-zuji.top</a></p>
+<h2 id="在博客写文章"><a href="#在博客写文章" class="headerlink" title="在博客写文章"></a>在博客写文章</h2><h3 id="用hexo发表新文章"><a href="#用hexo发表新文章" class="headerlink" title="用hexo发表新文章"></a>用hexo发表新文章</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo n &quot;文章标题&quot;</span><br></pre></td></tr></table></figure>
+<p>其中 我的家 为文章标题，执行命令 <code>hexo n &quot;HelloWorld&quot;</code> 后，会在项目 \Hexo\source_posts 中生成 HelloWorld.md文件，用编辑器打开编写即可。</p>
+<p>当然，也可以直接在\Hexo\source_posts中新建一个md文件，我就是这么做的。<br>写完后，推送到服务器上，执行以下命令即可在我们的站点看到新的文章。</p>
+<h3 id="用Markdown写文章"><a href="#用Markdown写文章" class="headerlink" title="用Markdown写文章"></a>用Markdown写文章</h3><p>在 \Hexo\source_posts 文件夹下存放着我们的文章，它们的格式都是以.md格式结尾的，没错，Hexo也是支持Markdown语法的，所以当我们需要写具有格式化的文章时，我们可以使用支持Markdown语法的编辑器进行文章编译，然后保存文件到 \Hexo\source_posts 文件夹下即可。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p>1、<a href="https://juejin.im/entry/5a574864f265da3e3c6c1217" target="_blank" rel="noopener">2018，你该搭建自己的博客了！</a></p>
+<p>2、<a href="https://www.cnblogs.com/chenwolong/p/GIT.html" target="_blank" rel="noopener">GIT 常用命令</a></p>
+<p>3、<a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="noopener">Hexo 文档</a></p>
+<p>4、<a href="http://www.markdown.cn/" target="_blank" rel="noopener">MarkDown教程</a></p>
+
+      
+      
+        <div class="page-reward">
+          <p><a href="javascript:void(0)" onclick="dashangToggle()" class="dashang">赏</a></p>
+          <div class="hide_box"></div>
+          <div class="shang_box">
+            <a class="shang_close" href="javascript:void(0)" onclick="dashangToggle()">×</a>
+            <div class="shang_tit">
+              <p>哈哈哈哈</p>
+            </div>
+            <div class="shang_payimg">
+              <img src="/img/head.jpg" alt="扫码支持" title="扫一扫" />
+            </div>
+              <div class="pay_explain">皮一下，很开心</div>
+            <div class="shang_payselect">
+              
+                <div class="pay_item checked" data-id="alipay">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/head.jpg" alt="支付宝" /></span>
+                </div>
+              
+              
+                <div class="pay_item" data-id="wechat">
+                  <span class="radiobox"></span>
+                  <span class="pay_logo"><img src="/img/head.jpg" alt="微信" /></span>
+                </div>
+              
+            </div>
+            <div class="shang_info">
+              <p>打开<span id="shang_pay_txt">支付宝</span>扫一扫，即可进行扫码打赏哦</p>
+            </div>
+          </div>
+        </div>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+        <script type="text/javascript">
+          $(".pay_item").click(function(){
+            $(this).addClass('checked').siblings('.pay_item').removeClass('checked');
+            var dataid=$(this).attr('data-id');
+            $(".shang_payimg img").attr("src","/img/head.jpg"); //"+dataid+"img
+            $("#shang_pay_txt").text(dataid=="alipay"?"支付宝":"微信");
+          });
+          function dashangToggle(){
+            
+            $(".hide_box").fadeToggle();
+            $(".shang_box").fadeToggle();
+          }
+        </script>
+      
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2018/06/14/使用Hexo+GitHub搭建个人博客/">使用Hexo+GitHub搭建个人博客</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 Ink-足迹 的个人博客">Ink-足迹</a></p>
+        <p><span>发布时间:</span>2018年06月14日 - 10时19分</p>
+        <p><span>最后更新:</span>2018年06月12日 - 19时21分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2018/06/14/使用Hexo+GitHub搭建个人博客/" title="使用Hexo+GitHub搭建个人博客">https://ink-zuji.top/2018/06/14/使用Hexo+GitHub搭建个人博客/</a>
+            <span class="copy-path" data-clipboard-text="原文: https://ink-zuji.top/2018/06/14/使用Hexo+GitHub搭建个人博客/　　作者: Ink-足迹" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)" target = "_blank">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+<nav id="article-nav">
+  
+  
+    <a href="/2018/06/13/SpringBoot获取音频文件时长/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">SpringBoot获取音频文件时长</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#搭建环境"><span class="toc-number">1.</span> <span class="toc-text">搭建环境</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Node-js"><span class="toc-number">1.1.</span> <span class="toc-text">安装Node.js</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装Git"><span class="toc-number">1.2.</span> <span class="toc-text">安装Git</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在GitHub上创建GitHub-pages项目"><span class="toc-number">2.</span> <span class="toc-text">在GitHub上创建GitHub pages项目</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#注册GitHub账号"><span class="toc-number">2.1.</span> <span class="toc-text">注册GitHub账号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#创建项目代码库"><span class="toc-number">2.2.</span> <span class="toc-text">创建项目代码库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#项目创建完成之后，配置属性"><span class="toc-number">2.3.</span> <span class="toc-text">项目创建完成之后，配置属性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置SSH密钥"><span class="toc-number">2.4.</span> <span class="toc-text">配置SSH密钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hexo-创建个人博客"><span class="toc-number">3.</span> <span class="toc-text">Hexo 创建个人博客</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo-安装"><span class="toc-number">3.1.</span> <span class="toc-text">Hexo 安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Hexo初始化配置"><span class="toc-number">3.2.</span> <span class="toc-text">Hexo初始化配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#美化博客（可选）"><span class="toc-number">3.3.</span> <span class="toc-text">美化博客（可选）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#将博客部署到GitHub-Pages上"><span class="toc-number">3.4.</span> <span class="toc-text">将博客部署到GitHub Pages上</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将自己的域名关联到GitHub-pages上"><span class="toc-number">4.</span> <span class="toc-text">将自己的域名关联到GitHub pages上</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#购买域名"><span class="toc-number">4.1.</span> <span class="toc-text">购买域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置CNAME文件"><span class="toc-number">4.2.</span> <span class="toc-text">配置CNAME文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析域名"><span class="toc-number">4.3.</span> <span class="toc-text">解析域名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置解析参数"><span class="toc-number">4.4.</span> <span class="toc-text">配置解析参数</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#在博客写文章"><span class="toc-number">5.</span> <span class="toc-text">在博客写文章</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用hexo发表新文章"><span class="toc-number">5.1.</span> <span class="toc-text">用hexo发表新文章</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#用Markdown写文章"><span class="toc-number">5.2.</span> <span class="toc-text">用Markdown写文章</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考资料"><span class="toc-number">6.</span> <span class="toc-text">参考资料</span></a></li></ol>
+</div>
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script>
+    var valueHide = "隐藏目录";
+    var valueShow = "显示目录";
+
+    if ($(".left-col").is(":hidden")) {
+        $("#tocButton").attr("value", valueShow);
+    }
+    $("#tocButton").click(function() {
+        if ($("#toc").is(":hidden")) {
+            $("#tocButton").attr("value", valueHide);
+            $("#toc").slideDown(320);
+        }
+        else {
+            $("#tocButton").attr("value", valueShow);
+            $("#toc").slideUp(350);
+        }
+    })
+    if ($(".toc").length < 1) {
+        $("#toc, #tocButton").hide();
+    }
+</script>
+
+
+
+
+
+<div class="bdsharebuttonbox">
+	<a href="#" class="fx fa-weibo bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+	<a href="#" class="fx fa-weixin bds_weixin" data-cmd="weixin" title="分享到微信"></a>
+	<a href="#" class="fx fa-qq bds_sqq" data-cmd="sqq" title="分享到QQ好友"></a>
+	<a href="#" class="fx fa-facebook-official bds_fbook" data-cmd="fbook" title="分享到Facebook"></a>
+	<a href="#" class="fx fa-twitter bds_twi" data-cmd="twi" title="分享到Twitter"></a>
+	<a href="#" class="fx fa-linkedin bds_linkedin" data-cmd="linkedin" title="分享到linkedin"></a>
+	<a href="#" class="fx fa-files-o bds_copy" data-cmd="copy" title="分享到复制网址"></a>
+</div>
+<script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"2","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+
+
+    
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+        
+            <a href="/2018/06/13/SpringBoot获取音频文件时长/" title="下一篇: SpringBoot获取音频文件时长">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2018/06/14/使用Hexo+GitHub搭建个人博客/">使用Hexo+GitHub搭建个人博客</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/13/SpringBoot获取音频文件时长/">SpringBoot获取音频文件时长</a></li><li class="post-list-item"><a class="post-list-link" href="/2018/06/12/常用Git命令清单/">常用Git命令清单</a></li></ul>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200, function() {
+                    if ($(".switch-area").is(":visible")) {
+                        $("#tocButton").attr("value", valueHide);
+                        }
+                    })
+            }
+            else {
+            }
+        })
+    </script>
+
+
+
+    <script>
+        
+    </script>
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2018 Ink-足迹
+            </div>
+            <div class="footer-right">
+                <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/luuman/hexo-theme-spfk" target="_blank">spfk</a> by luuman
+            </div>
+        </div>
+        
+    </div>
+</footer>
+
+    </div>
+    <script src="https://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            var backgroundnum = 24;
+            var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+            $("#mobile-nav").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+            $(".left-col").css({"background-image": backgroundimg,"background-size": "cover","background-position": "center"});
+        })
+    </script>
+
+
+
+
+
+<div class="scroll" id="scroll">
+    <a href="#"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer"><i class="fa fa-arrow-down"></i></a>
+</div>
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+
+  <script language="javascript">
+    $(function() {
+        $("a[title]").each(function() {
+            var a = $(this);
+            var title = a.attr('title');
+            if (title == undefined || title == "") return;
+            a.data('title', title).removeAttr('title').hover(
+
+            function() {
+                var offset = a.offset();
+                $("<div id=\"anchortitlecontainer\"></div>").appendTo($("body")).html(title).css({
+                    top: offset.top - a.outerHeight() - 15,
+                    left: offset.left + a.outerWidth()/2 + 1
+                }).fadeIn(function() {
+                    var pop = $(this);
+                    setTimeout(function() {
+                        pop.remove();
+                    }, pop.text().length * 800);
+                });
+            }, function() {
+                $("#anchortitlecontainer").remove();
+            });
+        });
+    });
+</script>
+
+
+  </div>
+</body>
+</html>
